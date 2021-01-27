@@ -1,0 +1,29 @@
+{
+  "name": "yeonyu-utils",
+  "version": "0.1.0",
+  "description": "My typescript(javascript) utils to use the frequently",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ye0nyu/yeonyu-utils.git"
+  },
+  "keywords": [
+    "utils"
+  ],
+  "author": "yeonyu",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ye0nyu/yeonyu-utils/issues"
+  },
+  "homepage": "https://github.com/ye0nyu/yeonyu-utils#readme",
+  "devDependencies": {
+    "tslib": "^2.1.0",
+    "typescript": "^4.1.3"
+  }
+}

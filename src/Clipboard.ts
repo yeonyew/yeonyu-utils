@@ -23,7 +23,7 @@ export interface VanillaCopyParams {
   callback?: () => void;
 }
 
-export const copyToClipboard = ({ value, id, callback }: VanillaCopyParams) => {
+export const copyToClipboard = async ({value, id, callback}: VanillaCopyParams) => {
   let inputId = "vanilla-copy";
   if (id) {
     inputId = id;
@@ -45,7 +45,7 @@ export const copyToClipboard = ({ value, id, callback }: VanillaCopyParams) => {
     vanillaCopy.value = value;
     vanillaCopy.focus();
     vanillaCopy.select();
-    document.execCommand("copy");
+    await document.execCommand("copy");
     vanillaCopy.value = "";
 
     (callback as Function)?.call(null);

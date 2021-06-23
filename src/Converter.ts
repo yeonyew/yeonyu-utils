@@ -17,7 +17,11 @@
  *
  */
 
-// decimal ip type to CIDR prefix length
+/**
+ * Decimal ip type to CIDR prefix length
+ *
+ * @param smStr
+ */
 export const subnetMask2CIDR = function (smStr: string) {
   if (typeof (smStr) !== 'string') {
     return -1;
@@ -41,7 +45,12 @@ export const subnetMask2CIDR = function (smStr: string) {
   return -1;
 };
 
-// CIDR prefix length to decimal
+/**
+ * CIDR prefix length to Decimal IP
+ *
+ * @param cidr
+ * @constructor
+ */
 export const CIDR2SubnetMask = function (cidr: number) {
   const result = [];
   if (cidr >= 0 && cidr <= 32) {
@@ -63,6 +72,13 @@ export const CIDR2SubnetMask = function (cidr: number) {
   }
 };
 
+/**
+ * RGB -> Decimal array (0 ~ 255)[]
+ *
+ * @example '#000000' -> [0, 0, 0]
+ *
+ * @param rgbString
+ */
 export const rgbHexToDecimal = function (rgbString: string) {
   const rgbHex = rgbString.replace("#", "").toUpperCase();
   if (/[0-9A-F]{6}/.test(rgbHex)) {
@@ -77,15 +93,29 @@ export const rgbHexToDecimal = function (rgbString: string) {
   return undefined;
 }
 
+/**
+ * Decimal to padding bits string
+ *
+ * @param decimal
+ * @param bitLength
+ */
 export const decimalToBitString = function (decimal: number, bitLength: number) {
   return Number(decimal).toString(2).padStart(bitLength, "0");
 }
 
+/**
+ * Decimal to bit and find '1'
+ *
+ * @return number[] - found '1' index array by string index direction
+ *
+ * @param target
+ * @param bitLength
+ */
 export const decimalToBitFlags = function (target: number, bitLength: number) {
   const flags: number[] = [];
   const bitString = decimalToBitString(target, bitLength);
   if (bitString.length === bitLength) {
-    for (let i = 0; i < bitLength; i ++) {
+    for (let i = 0; i < bitLength; i++) {
       if (bitString.charAt(i) === "1") {
         flags.push(Math.pow(2, bitLength - (i + 1)));
       }

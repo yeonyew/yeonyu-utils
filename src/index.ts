@@ -22,6 +22,11 @@ import converter from "./Converter";
 import formatter from "./Formatter";
 import parser from "./Parser";
 import validator from "./Validator";
+import {SizeUnit} from "./SizeUnit";
+
+export {
+  SizeUnit
+};
 
 export default {
   clipboard,
@@ -29,4 +34,5 @@ export default {
   formatter,
   parser,
   validator,
+  SizeUnit,
 }

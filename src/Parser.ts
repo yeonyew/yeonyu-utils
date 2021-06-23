@@ -17,20 +17,40 @@
  *
  */
 
+/**
+ * Date from objectId string (mongoDB)
+ *
+ * @param objectId
+ *
+ * @return Date
+ */
 export const dateFromObjectId = (objectId: string) => {
     return new Date(parseInt(objectId.substring(0, 8), 16) * 1000);
 };
 
+/**
+ * @deprecated
+ *
+ * @param uuid
+ */
 export const getOnlyGuid = (uuid: string) => {
     const pos = uuid.indexOf('\\');
     return (pos > 0) ? uuid.substr(0, pos) : uuid;
 };
 
-export const parseJsonSafety = (raw: any) => (function (raw) {
+/**
+ * Simple parse json to object fail
+ *
+ * @return any;
+ * @return undefined;
+ *
+ * @param raw
+ */
+export const parseJsonSafety = (raw: any): any => (function (raw) {
     try {
         return JSON.parse(raw);
     } catch (err) {
-        return false;
+        return undefined;
     }
 })(raw);
 

@@ -1,13 +1,13 @@
 {
   "name": "yeonyu-utils",
-  "version": "0.1.1",
-  "description": "My typescript(javascript) utils to use the frequently",
+  "version": "0.2.1",
+  "description": "yeonyu's typescript(javascript) utils to use the frequently",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "prepublish": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -r ts-node/register test/**/*.spec.ts"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,11 @@
   },
   "homepage": "https://github.com/ye0nyu/yeonyu-utils#readme",
   "devDependencies": {
+    "@types/chai": "^4.2.19",
+    "@types/mocha": "^8.2.2",
+    "chai": "^4.3.4",
+    "mocha": "^9.0.1",
+    "ts-node": "^10.0.0",
     "tslib": "^2.1.0",
     "typescript": "^4.1.3"
   }

@@ -23,6 +23,13 @@ export interface VanillaCopyParams {
   callback?: () => void;
 }
 
+/**
+ * input (value) -> select -> copy like
+ *
+ * @param value
+ * @param id
+ * @param callback
+ */
 export const copyToClipboard = async ({value, id, callback}: VanillaCopyParams) => {
   let inputId = "vanilla-copy";
   if (id) {

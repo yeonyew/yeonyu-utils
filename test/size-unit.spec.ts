@@ -21,6 +21,13 @@ import {SizeUnit, UnitType} from "../src/SizeUnit";
 
 describe('SizeUnit', function() {
   describe('#constructor()', function() {
+    const size0 = new SizeUnit(0, UnitType.BYTE);
+    console.log(size0);
+    const size8 = new SizeUnit(8, UnitType.BYTE);
+    console.log(size8);
+    const size4p4 = new SizeUnit(4.4, UnitType.BYTE);
+    console.log(size4p4);
+
     it('value is 1.', function() {
       const size1200 = new SizeUnit(1200);
       console.log(size1200, size1200.value);

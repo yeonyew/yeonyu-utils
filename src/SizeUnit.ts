@@ -84,10 +84,13 @@ export class SizeUnit {
     const unitBase = SizeUnit._decideUnitBase(this._unitType);
     let unitPrefixIndex = 0;
     if (this._size < this._base) {
-      const pluralSuffix = (this._size === 0)
-        || (this._size ? '' : 's');
+      const pluralSuffix = (this._size === 0 || this._size === 1 ) ? '' : 's';
+      let val = (this._isNegative ? -1 : 1) * this._size;
+      if (isByteUnitType) {
+        val = Number(this._size.toFixed(0));
+      }
       return {
-        value: (this._isNegative ? -1 : 1) * this._size,
+        value: val,
         unit: isByteUnitType
           ? (`${BYTE_STRING}${pluralSuffix}`) : unitBase,
         index: 0,

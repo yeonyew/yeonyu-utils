@@ -51,7 +51,7 @@ export declare interface SizeTermResult {
 export interface SizeUnitOptions {
   fixedUnit?: number
   isCutoffFixed?: boolean;
-  isBinary: boolean;
+  isBinary?: boolean;
 }
 
 export class SizeUnit {

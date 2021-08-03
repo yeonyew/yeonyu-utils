@@ -17,15 +17,18 @@
  *
  */
 
-import clipboard from "./Clipboard";
+import clipboard, { VanillaCopyParams } from "./Clipboard";
 import converter from "./Converter";
 import formatter from "./Formatter";
 import parser from "./Parser";
 import validator from "./Validator";
-import {SizeUnit} from "./SizeUnit";
+import { SizeUnit, SizeUnitOptions, UnitType } from "./SizeUnit";
 
 export {
-  SizeUnit
+  SizeUnit,
+  SizeUnitOptions,
+  UnitType,
+  VanillaCopyParams,
 };
 
 export default {

@@ -16,8 +16,8 @@
  * limitations under the License.
  *
  */
-import {assert} from 'chai';
-import {SizeUnit, UnitType} from "../src/SizeUnit";
+import { assert } from 'chai';
+import { SizeUnit, UnitType } from "../src";
 
 describe('SizeUnit', function() {
   describe('#constructor()', function() {
@@ -28,10 +28,10 @@ describe('SizeUnit', function() {
     const size4p4 = new SizeUnit(4.4, UnitType.BYTE);
     console.log(size4p4);
 
-    it('value is 1.', function() {
+    it('value is 1.2', function() {
       const size1200 = new SizeUnit(1200);
       console.log(size1200, size1200.value);
-      assert.equal(size1200.value, 1);
+      assert.equal(size1200.value, 1.2);
     });
   });
   describe('#toString()', function () {
@@ -46,9 +46,16 @@ describe('SizeUnit', function() {
       assert.equal(m4.toString(), '4 MB');
     });
     it('return 4 MiB', function () {
-      const m4 = new SizeUnit(4 * 1024 ** 2, UnitType.BIN_BYTE, 0, undefined, { isBinary: true });
+      const m4 = new SizeUnit(4 * 1024 ** 2, UnitType.BIN_BYTE, 0,{ isBinary: true });
       console.log(m4.toString());
       assert.equal(m4.toString(), '4 MiB');
+    });
+  });
+  describe('#fixed', function () {
+    it('4748 return 4.7 K', function () {
+      const k44 = new SizeUnit(4740, undefined, 1);
+      console.log(k44, k44.toString());
+      assert.equal(k44.toString(), '4.7 K');
     });
   });
 });

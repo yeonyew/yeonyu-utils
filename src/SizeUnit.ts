@@ -48,18 +48,21 @@ export declare interface SizeTermResult {
   index: number;
 }
 
-export interface ByteOptions {
+export interface SizeUnitOptions {
+  fixedUnit?: number
+  isCutoffFixed?: boolean;
   isBinary: boolean;
 }
 
 export class SizeUnit {
   private readonly _size: number;
-  private readonly _fixed: number;
+  private readonly _fixed?: number;
   private readonly _fixedUnit?: number;
   private readonly _unitType: UnitType;
   private readonly _base: 1000 | 1024;
   private readonly _isNegative: boolean;
   private readonly _result: SizeTermResult;
+  private readonly _isCutoffFixed: boolean;
 
   private static _decideUnitBase(type: UnitType) {
     switch (type) {
@@ -76,6 +79,18 @@ export class SizeUnit {
     }
   }
 
+  private static _cutoffFixed(value: number, fractionDigits: number) {
+    const valueString = value.toString();
+    const pointIndex = valueString.indexOf('.');
+    if (pointIndex > -1) {
+      let underPoint = valueString.slice(pointIndex + 1, pointIndex + fractionDigits + 1);
+      if (underPoint === '' || Number(underPoint) === 0) {
+        return valueString.slice(0, pointIndex);
+      }
+      return valueString.slice(0, pointIndex) + '.' + underPoint;
+    }
+  }
+
   private _convert() {
     if (!(this._unitType in UnitType)) {
       throw Error("[yeonyu-utils] Error SizeUnit invalid unitType in constructor");
@@ -89,6 +104,9 @@ export class SizeUnit {
       if (isByteUnitType) {
         val = Number(this._size.toFixed(0));
       }
+      if (this._isCutoffFixed && this._fixed !== undefined) {
+        val = Number(SizeUnit._cutoffFixed(val, this._fixed));
+      }
       return {
         value: val,
         unit: isByteUnitType
@@ -99,10 +117,15 @@ export class SizeUnit {
       unitPrefixIndex = Math.floor(
         Math.log(this._size) / Math.log(this._base)
       );
-      const value = Number((this._size / this._base ** unitPrefixIndex)).toFixed(this._fixed);
+      let value = Number((this._size / this._base ** unitPrefixIndex));
+      if (this._isCutoffFixed && this._fixed !== undefined) {
+        value = Number(SizeUnit._cutoffFixed(value, this._fixed));
+      } else if (this._fixed !== undefined) {
+        value = Number(value.toFixed(this._fixed));
+      }
       const unit = UNITS[unitPrefixIndex] + typeToUnit[this._unitType];
       return {
-        value: (this._isNegative ? -1 : 1) * Number(value),
+        value: (this._isNegative ? -1 : 1) * value,
         unit,
         index: unitPrefixIndex
       }
@@ -112,11 +135,12 @@ export class SizeUnit {
   constructor(
     size: number | string,
     unitType: UnitType = UnitType.DEFAULT,
-    fixed = 0,
-    fixedUnit?: number,
-    byteOptions?: ByteOptions
+    fixed?: number,
+    options?: SizeUnitOptions,
   ) {
-    if (byteOptions && byteOptions.isBinary) {
+    const isBinary = options?.isBinary;
+    const fixedUnit = options?.fixedUnit;
+    if (isBinary) {
       this._base = 1024;
     } else {
       this._base = 1000;
@@ -128,6 +152,7 @@ export class SizeUnit {
     this._isNegative = $size < 0;
     this._size = this._isNegative ? -($size) : $size;
     this._fixed = fixed;
+    this._isCutoffFixed = options?.isCutoffFixed || false;
     this._unitType = unitType;
     this._fixedUnit = fixedUnit;
     this._result = this._convert();

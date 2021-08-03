@@ -17,7 +17,7 @@
  *
  */
 
-import {BYTE_STRING, UNITS} from "./SizeUnit";
+import { BYTE_STRING, UNITS } from "./SizeUnit";
 
 export const BYTE_UNITS = [
   " Bytes",

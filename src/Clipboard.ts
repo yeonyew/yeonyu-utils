@@ -31,7 +31,7 @@ export interface VanillaCopyParams {
  * @param callback
  */
 export const copyToClipboard = async ({value, id, callback}: VanillaCopyParams) => {
-  let inputId = "vanilla-copy";
+  let inputId = 'vanilla-copy';
   if (id) {
     inputId = id;
   }
@@ -40,20 +40,20 @@ export const copyToClipboard = async ({value, id, callback}: VanillaCopyParams) 
   if (findVanillaCopy) {
     vanillaCopy = findVanillaCopy;
   } else {
-    vanillaCopy = document.createElement("input");
-    vanillaCopy.setAttribute("id", "vanilla-copy");
-    vanillaCopy.setAttribute("type", "text");
-    vanillaCopy.style.position = "absolute";
-    vanillaCopy.style.left = "-1000px";
-    vanillaCopy.style.top = "-1000px";
+    vanillaCopy = document.createElement('input');
+    vanillaCopy.setAttribute('id', 'vanilla-copy');
+    vanillaCopy.setAttribute('type', 'text');
+    vanillaCopy.style.position = 'absolute';
+    vanillaCopy.style.left = '-1000px';
+    vanillaCopy.style.top = '-1000px';
     document.body.appendChild(vanillaCopy);
   }
   if (vanillaCopy) {
     vanillaCopy.value = value;
     vanillaCopy.focus();
     vanillaCopy.select();
-    await document.execCommand("copy");
-    vanillaCopy.value = "";
+    await document.execCommand('copy');
+    vanillaCopy.value = '';
 
     (callback as Function)?.call(null);
   }

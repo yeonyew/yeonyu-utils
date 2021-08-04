@@ -17,7 +17,7 @@
  *
  */
 import { assert } from 'chai';
-import { SizeUnit, UnitType } from "../src";
+import { SizeUnit, UnitType } from '../src';
 
 describe('SizeUnit', function() {
   describe('#constructor()', function() {
@@ -34,6 +34,7 @@ describe('SizeUnit', function() {
       assert.equal(size1200.value, 1.2);
     });
   });
+
   describe('#toString()', function () {
     it('return 4 M', function () {
       const m4 = new SizeUnit(4000000);
@@ -51,11 +52,18 @@ describe('SizeUnit', function() {
       assert.equal(m4.toString(), '4 MiB');
     });
   });
+
   describe('#fixed', function () {
     it('4748 return 4.7 K', function () {
       const k44 = new SizeUnit(4740, undefined, 1);
       console.log(k44, k44.toString());
       assert.equal(k44.toString(), '4.7 K');
+    });
+
+    it('cutoff value 0', function () {
+      const v0 = new SizeUnit(0, UnitType.DEFAULT, 2, { isCutoffFixed: true });
+      console.log(v0);
+      assert.equal(v0.value, 0);
     });
   });
 });

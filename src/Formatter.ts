@@ -17,41 +17,41 @@
  *
  */
 
-import { BYTE_STRING, UNITS } from "./SizeUnit";
+import { BYTE_STRING, UNITS } from './SizeUnit';
 
 export const BYTE_UNITS = [
-  " Bytes",
-  " KB",
-  " MB",
-  " GB",
-  " TB",
-  " PB",
-  " EB",
-  " ZB",
-  " YB",
+  ' Bytes',
+  ' KB',
+  ' MB',
+  ' GB',
+  ' TB',
+  ' PB',
+  ' EB',
+  ' ZB',
+  ' YB',
 ];
 export const BI_BYTE_UNITS = [
-  " Bytes",
-  " KiB",
-  " MiB",
-  " GiB",
-  " TiB",
-  " PiB",
-  " EiB",
-  " ZiB",
-  " YiB"
+  ' Bytes',
+  ' KiB',
+  ' MiB',
+  ' GiB',
+  ' TiB',
+  ' PiB',
+  ' EiB',
+  ' ZiB',
+  ' YiB'
 ];
-export const BPS_UNITS = ["bps", "Kbps", "Mbps", "Gbps", "Tbps", "Pbps"];
+export const BPS_UNITS = ['bps', 'Kbps', 'Mbps', 'Gbps', 'Tbps', 'Pbps'];
 export const FREQ_UNITS = [
-  " Hz",
-  " KHz",
-  " MHz",
-  " GHz",
-  " THz",
-  " PHz",
-  " EHz",
-  " ZHz",
-  " YHz",
+  ' Hz',
+  ' KHz',
+  ' MHz',
+  ' GHz',
+  ' THz',
+  ' PHz',
+  ' EHz',
+  ' ZHz',
+  ' YHz',
 ];
 
 /**
@@ -72,7 +72,7 @@ export const sizeTerm = (
   if (sizeValue === 0) {
     return {
       value: 0,
-      unit: "",
+      unit: '',
       index: 0,
     };
   }
@@ -83,7 +83,7 @@ export const sizeTerm = (
     if (i === 0) {
       return {
         value: sizeValue,
-        unit: "",
+        unit: '',
         index: 0,
       };
     }
@@ -171,7 +171,7 @@ export const sizeTermByteToString = (
 ) => {
   const formatSize = sizeTermByte(size, fixed, units);
   if (formatSize) {
-    return formatSize.value + " " + formatSize.unit;
+    return formatSize.value + ' ' + formatSize.unit;
   }
 };
 
@@ -290,7 +290,7 @@ export const sizeTermFreqToString = (
 ) => {
   const formatSize = sizeTermFreq(size, fixed, units);
   if (formatSize) {
-    return formatSize.value + " " + formatSize.unit;
+    return formatSize.value + ' ' + formatSize.unit;
   }
 };
 

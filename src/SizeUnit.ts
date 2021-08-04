@@ -17,14 +17,12 @@
  *
  */
 
-import {BYTE_UNITS} from "./Formatter";
-
-export const UNITS = ["", "K", "M", "G", "T", "P", "E", "Z", "Y"];
-export const BYTE_STRING = "Byte";
-const BYTE_UNIT = "B";
-const BIN_BYTE_UNIT = "iB";
-const BPS_UNIT = "bps";
-const FREQ_UNIT = "Hz";
+export const UNITS = ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
+export const BYTE_STRING = 'Byte';
+const BYTE_UNIT = 'B';
+const BIN_BYTE_UNIT = 'iB';
+const BPS_UNIT = 'bps';
+const FREQ_UNIT = 'Hz';
 
 export enum UnitType {
   DEFAULT,
@@ -35,7 +33,7 @@ export enum UnitType {
 }
 
 const typeToUnit = {
-  [UnitType.DEFAULT]: "",
+  [UnitType.DEFAULT]: '',
   [UnitType.BYTE]: BYTE_UNIT,
   [UnitType.BIN_BYTE]: BIN_BYTE_UNIT,
   [UnitType.BPS]: BPS_UNIT,
@@ -75,7 +73,7 @@ export class SizeUnit {
       case UnitType.FREQ:
         return FREQ_UNIT;
       default:
-        return "";
+        return '';
     }
   }
 
@@ -89,11 +87,12 @@ export class SizeUnit {
       }
       return valueString.slice(0, pointIndex) + '.' + underPoint;
     }
+    return value;
   }
 
   private _convert() {
     if (!(this._unitType in UnitType)) {
-      throw Error("[yeonyu-utils] Error SizeUnit invalid unitType in constructor");
+      throw Error('[yeonyu-utils] Error SizeUnit invalid unitType in constructor');
     }
     const isByteUnitType = this._unitType === UnitType.BYTE || this._unitType === UnitType.BIN_BYTE;
     const unitBase = SizeUnit._decideUnitBase(this._unitType);
@@ -127,8 +126,8 @@ export class SizeUnit {
       return {
         value: (this._isNegative ? -1 : 1) * value,
         unit,
-        index: unitPrefixIndex
-      }
+        index: unitPrefixIndex,
+      };
     }
   }
 
@@ -146,7 +145,7 @@ export class SizeUnit {
       this._base = 1000;
     }
     if (Number.isNaN(Number(size))) {
-      throw Error("[yeonyu-utils] Error size is not a number");
+      throw Error('[yeonyu-utils] Error size is not a number');
     }
     const $size = Number(size);
     this._isNegative = $size < 0;
@@ -174,8 +173,9 @@ export class SizeUnit {
 
   public toString() {
     if (this._result) {
-      return `${this._result.value} ${this._result.unit}`
+      if (this._result.unit === '') return this._result.value;
+      return `${this._result.value} ${this._result.unit}`;
     }
-    return "";
+    return '';
   }
 }

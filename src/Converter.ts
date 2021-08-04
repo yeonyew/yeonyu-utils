@@ -80,7 +80,7 @@ export const CIDR2SubnetMask = function (cidr: number) {
  * @param rgbString
  */
 export const rgbHexToDecimal = function (rgbString: string) {
-  const rgbHex = rgbString.replace("#", "").toUpperCase();
+  const rgbHex = rgbString.replace('#', '').toUpperCase();
   if (/[0-9A-F]{6}/.test(rgbHex)) {
     const rgb = [];
     for (let i = 0; i < 3; i++) {
@@ -100,7 +100,7 @@ export const rgbHexToDecimal = function (rgbString: string) {
  * @param bitLength
  */
 export const decimalToBitString = function (decimal: number, bitLength: number) {
-  return Number(decimal).toString(2).padStart(bitLength, "0");
+  return Number(decimal).toString(2).padStart(bitLength, '0');
 }
 
 /**
@@ -116,7 +116,7 @@ export const decimalToBitFlags = function (target: number, bitLength: number) {
   const bitString = decimalToBitString(target, bitLength);
   if (bitString.length === bitLength) {
     for (let i = 0; i < bitLength; i++) {
-      if (bitString.charAt(i) === "1") {
+      if (bitString.charAt(i) === '1') {
         flags.push(Math.pow(2, bitLength - (i + 1)));
       }
     }

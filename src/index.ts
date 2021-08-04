@@ -17,12 +17,12 @@
  *
  */
 
-import clipboard, { VanillaCopyParams } from "./Clipboard";
-import converter from "./Converter";
-import formatter from "./Formatter";
-import parser from "./Parser";
-import validator from "./Validator";
-import { SizeUnit, SizeUnitOptions, UnitType } from "./SizeUnit";
+import clipboard, { VanillaCopyParams } from './Clipboard';
+import converter from './Converter';
+import formatter from './Formatter';
+import parser from './Parser';
+import validator from './Validator';
+import { SizeUnit, SizeUnitOptions, UnitType } from './SizeUnit';
 
 export {
   SizeUnit,
@@ -38,4 +38,4 @@ export default {
   parser,
   validator,
   SizeUnit,
-}
+};

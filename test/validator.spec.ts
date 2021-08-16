@@ -18,21 +18,21 @@
  */
 
 import { assert } from 'chai';
-import { testEmail } from "../src/Validator";
+import { isEmail } from "../src/Validator";
 
 describe('Validation', function() {
   describe('#email()', function () {
     // only complete email
     it('abc@example.com', function() {
-      assert.equal(testEmail("abc@example.com"), true);
+      assert.equal(isEmail("abc@example.com"), true);
     });
     // false test
     it('abc@example -> false', function() {
-      assert.equal(testEmail("abc@example"), false);
+      assert.equal(isEmail("abc@example"), false);
     });
     // length test
     it('"abc@example.com", length limit: 8 -> false', function() {
-      assert.equal(testEmail("abc@example.com", 8), false);
+      assert.equal(isEmail("abc@example.com", 8), false);
     });
   })
 })

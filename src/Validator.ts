@@ -26,8 +26,9 @@ export const isUUID = (str: string) => {
   return UUID_REGEX.test(str);
 };
 
-export const testEmail = (str: string, length: number = 255) => {
-  return EMAIL_REGEX.test(str) && length > 0 && str.length <= length;
+export const isEmail = (str: string, length: number = 255) => {
+  return EMAIL_REGEX.test(str)
+    && (length < 1 || (length > 0 && str.length <= length));
 };
 
 export const isIp = function (ipStr: string) {
@@ -40,7 +41,7 @@ export const isSubnetMask = function (maskStr: string) {
 
 export default {
   isUUID,
-  testEmail,
+  isEmail,
   isIp,
   isSubnetMask,
 }

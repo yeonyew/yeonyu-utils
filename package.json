@@ -1,6 +1,6 @@
 {
   "name": "yeonyu-utils",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "yeonyu's typescript(javascript) utils to use the frequently",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

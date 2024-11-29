@@ -1,7 +1,7 @@
 /*
  * yeonyu-utils
  *
- * Copyright (c) 2021. yeonyew. All rights reserved.
+ * Copyright (c) 2024. yeonyew. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,25 +17,23 @@
  *
  */
 
-import clipboard from './Clipboard';
-import converter from './Converter';
-import formatter from './Formatter';
-import parser from './Parser';
-import validator from './Validator';
+export function steppedMaxValue(size: number, base = 1000, isHalf = true) {
+  const MIN = base * 10;
+  const MAX = Math.pow(base, 15);
+  const sizeValue = size || 0;
+  let maxStep = MIN;
+  let scale = base;
+  let half = 5;
 
-export * from './SizeUnit';
-export * from './Clipboard';
-export * from './Converter';
-export * from './Formatter';
-export * from './Parser';
-export * from './Validator';
+  while (sizeValue > maxStep && maxStep < MAX) {
+    maxStep = MIN * scale;
+    if (isHalf) {
+      scale *= half;
+      half = half === 5 ? 2 : 5;
+    } else {
+      scale *= base;
+    }
+  }
 
-export { clipboard, converter, formatter, parser, validator };
-
-export default {
-  clipboard,
-  converter,
-  formatter,
-  parser,
-  validator,
-};
+  return maxStep;
+}

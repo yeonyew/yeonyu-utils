@@ -1,7 +1,7 @@
 /*
  * yeonyu-utils
  *
- * Copyright (c) 2021. yeonyu. All rights reserved.
+ * Copyright (c) 2021. yeonyew. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,6 +60,7 @@ export const CIDR2SubnetMask = function (cidr: number) {
         cidr -= 8;
       } else if (cidr > 0) {
         result.push(256 - Math.pow(2, cidr));
+        cidr -= cidr;
       } else {
         result.push('0');
       }

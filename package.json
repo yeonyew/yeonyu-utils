@@ -1,6 +1,6 @@
 {
   "name": "yeonyu-utils",
-  "version": "0.3.0",
+  "version": "0.3.4-beta.0",
   "description": "yeonyew's typescript(javascript) utils to use the frequently",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,6 +8,13 @@
     "build": "tsc",
     "prepublish": "npm run build",
     "test": "mocha -r ts-node/register test/**/*.spec.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/**/*.js"
   },
   "repository": {
     "type": "git",

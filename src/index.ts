@@ -22,6 +22,7 @@ import converter from './Converter';
 import formatter from './Formatter';
 import parser from './Parser';
 import validator from './Validator';
+import { SizeUnit } from './SizeUnit';
 
 export * from './SizeUnit';
 export * from './Clipboard';
@@ -29,6 +30,8 @@ export * from './Converter';
 export * from './Formatter';
 export * from './Parser';
 export * from './Validator';
+export * from './constant';
+export * from './Calculate';
 
 export { clipboard, converter, formatter, parser, validator };
 
@@ -38,4 +41,5 @@ export default {
   formatter,
   parser,
   validator,
+  SizeUnit,
 };

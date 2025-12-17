@@ -1,7 +1,7 @@
 /*
  * yeonyu-utils
  *
- * Copyright (c) 2025. yeonyu. All rights reserved.
+ * Copyright (c) 2025. yeonyew. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,7 @@
  *
  */
 
-import {
-  MAX_32BITS,
-} from '../constant';
+import { MAX_32BITS } from '../constant';
 import { DEC_REGEX, HEX_REGEX, OCT_REGEX } from '../Validator';
 
 /**
@@ -82,12 +80,9 @@ export function ntoa(ipNum: number): string | undefined {
   if (!isValidIpNumber(ipNum)) {
     return undefined;
   }
-  return [
-    (ipNum >>> 24) & 0xff,
-    (ipNum >>> 16) & 0xff,
-    (ipNum >>> 8) & 0xff,
-    ipNum & 0xff,
-  ].join('.');
+  return [(ipNum >>> 24) & 0xff, (ipNum >>> 16) & 0xff, (ipNum >>> 8) & 0xff, ipNum & 0xff].join(
+    '.'
+  );
 }
 
 /**
@@ -133,27 +128,91 @@ export function ipRangeToCidr(startIp: string, endIp: string): string[] {
 }
 
 /**
- * Get CIDR Block(IPv4/prefix) to range info
+ * CIDR Block(IPv4/prefix) to range info
  *
  * @param cidr
  */
-export function getCidrInfo(cidr: string): {
+export function parseCidr(
+  cidr: string,
+  options?: { rangeAll?: boolean }
+): {
+  ip: string;
   prefix: number;
-  firstIp: string;
-  lastIp: string;
-  totalIps: number;
-} {
-  const [ip, prefixStr] = cidr.split('/');
-  const prefix = parseInt(prefixStr);
-  const ipInt = aton(ip) ?? 0;
+  beginIp: string;
+  endIp: string;
+  netmask: string;
+  networkIp: string;
+  broadcastIp: string;
+  total: number;
+  rangeIps: number;
+} | null {
+  const { rangeAll = false } = options || {};
+  const match = cidr.match(/^(.+)\/(\d+)$/);
+  if (!match) return null;
+
+  const [, ipStr, prefixStr] = match;
+  const prefix = parseInt(prefixStr, 10);
+
+  if (isNaN(prefix) || prefix < 0 || prefix > 32) {
+    return null;
+  }
+
+  const ipInt = aton(ipStr);
+  if (ipInt === undefined) {
+    return null;
+  }
+
   const hostBits = 32 - prefix;
-  const totalIps = 1 << hostBits;
-  const lastIpInt = ipInt + totalIps - 1;
+  const mask = (MAX_32BITS << hostBits) >>> 0;
+  const networkInt = (ipInt & mask) >>> 0;
+  const broadcastInt = (networkInt | (~mask >>> 0)) >>> 0;
+
+  const totalIps = Math.pow(2, hostBits);
+
+  let rangeCount = totalIps;
+  let beginInt = networkInt;
+  let endInt = broadcastInt;
+
+  if (prefix === 32) {
+    rangeCount = 1;
+    beginInt = networkInt;
+    endInt = networkInt;
+  } else if (prefix === 31) {
+    rangeCount = 2;
+    beginInt = networkInt;
+    endInt = broadcastInt;
+  } else {
+    if (rangeAll) {
+      beginInt = networkInt;
+      endInt = broadcastInt;
+      rangeCount = totalIps;
+    } else {
+      beginInt = networkInt + 1;
+      endInt = broadcastInt - 1;
+      rangeCount = totalIps - 2;
+    }
+
+    const beginTrailZero = (beginInt & 0xff) === 0;
+    if (beginTrailZero) {
+      beginInt += 1;
+      rangeCount -= 1;
+    }
+    const endTrailFull = (endInt & 0xff) === 0xff;
+    if (endTrailFull) {
+      endInt -= 1;
+      rangeCount -= 1;
+    }
+  }
 
   return {
+    ip: ipStr,
     prefix,
-    firstIp: ntoa(ipInt)!,
-    lastIp: ntoa(lastIpInt)!,
-    totalIps,
+    beginIp: ntoa(beginInt)!,
+    endIp: ntoa(endInt)!,
+    netmask: ntoa(mask)!,
+    networkIp: ntoa(networkInt)!,
+    broadcastIp: ntoa(broadcastInt)!,
+    total: totalIps,
+    rangeIps: rangeCount,
   };
 }

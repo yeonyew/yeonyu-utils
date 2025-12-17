@@ -1,7 +1,7 @@
 {
   "name": "yeonyu-utils",
   "version": "0.3.4-beta.0",
-  "description": "yeonyew's typescript(javascript) utils to use the frequently",
+  "description": "yeonyew's typescri  pt(javascript) utils to use the frequently",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -14,7 +14,14 @@
   ],
   "exports": {
     ".": "./dist/index.js",
-    "./*": "./dist/**/*.js"
+    "./network/*": {
+      "types": "./dist/network/*.d.ts",
+      "default": "./dist/network/*.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    }
   },
   "repository": {
     "type": "git",

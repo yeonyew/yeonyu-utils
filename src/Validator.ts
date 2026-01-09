@@ -1,7 +1,7 @@
 /*
  * yeonyu-utils
  *
- * Copyright (c) 2021. yeonyu. All rights reserved.
+ * Copyright (c) 2021. yeonyew. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,9 @@ export const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*
 export const UUID_REGEX = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/;
 export const IP_REGEX = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 export const SUBNETMASK_REGEX = /^(((255\.){3}(255|254|252|248|240|224|192|128+))|((255\.){2}(255|254|252|248|240|224|192|128|0+)\.0)|((255\.)(255|254|252|248|240|224|192|128|0+)(\.0+){2})|((255|254|252|248|240|224|192|128|0+)(\.0+){3}))$/;
+export const OCT_REGEX = /^0\d+$/;
+export const HEX_REGEX = /^0[xX][\da-fA-F]+$/;
+export const DEC_REGEX = /^0$|^[1-9]\d*$/;
 
 export const isUUID = (str: string) => {
   return UUID_REGEX.test(str);

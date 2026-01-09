@@ -1,7 +1,7 @@
 /*
  * yeonyu-utils
  *
- * Copyright (c) 2021. yeonyu. All rights reserved.
+ * Copyright (c) 2021. yeonyew. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,18 +23,28 @@
  * @param smStr
  */
 export const subnetMask2CIDR = function (smStr: string) {
-  if (typeof (smStr) !== 'string') {
+  if (typeof smStr !== 'string') {
     return -1;
   }
 
   const _splited = smStr.split('.');
   if (_splited.length === 4) {
     let result = 0;
+    let seenZero = false;
+
     for (const digit of _splited) {
       const _num = parseInt(digit, 10);
       if (_num <= 255 && _num >= 0) {
-        const _bit = _num.toString(2);
-        result += (_bit.match(/1/g) || []).length;
+        const _bit = _num.toString(2).padStart(8, '0');
+
+        for (const bit of _bit) {
+          if (bit === '1') {
+            if (seenZero) return -1; // If we've seen a 0 before, this is invalid
+            result++;
+          } else {
+            seenZero = true;
+          }
+        }
       } else {
         return -1;
       }
@@ -59,7 +69,8 @@ export const CIDR2SubnetMask = function (cidr: number) {
         result.push('255');
         cidr -= 8;
       } else if (cidr > 0) {
-        result.push(256 - Math.pow(2, cidr));
+        result.push(256 - Math.pow(2, 8 - cidr));
+        cidr -= cidr;
       } else {
         result.push('0');
       }
@@ -91,7 +102,7 @@ export const rgbHexToDecimal = function (rgbString: string) {
     });
   }
   return undefined;
-}
+};
 
 /**
  * Decimal to padding bits string
@@ -101,7 +112,7 @@ export const rgbHexToDecimal = function (rgbString: string) {
  */
 export const decimalToBitString = function (decimal: number, bitLength: number) {
   return Number(decimal).toString(2).padStart(bitLength, '0');
-}
+};
 
 /**
  * Decimal to bit and find '1'
@@ -123,7 +134,7 @@ export const decimalToBitFlags = function (target: number, bitLength: number) {
   }
 
   return flags;
-}
+};
 
 export default {
   subnetMask2CIDR,
@@ -131,4 +142,4 @@ export default {
   rgbHexToDecimal,
   decimalToBitString,
   decimalToBitFlags,
-}
+};

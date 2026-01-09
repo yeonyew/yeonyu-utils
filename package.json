@@ -1,7 +1,7 @@
 {
   "name": "yeonyu-utils",
-  "version": "0.2.7",
-  "description": "yeonyu's typescript(javascript) utils to use the frequently",
+  "version": "0.3.4-beta.0",
+  "description": "yeonyew's typescri  pt(javascript) utils to use the frequently",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -9,26 +9,40 @@
     "prepublish": "npm run build",
     "test": "mocha -r ts-node/register test/**/*.spec.ts"
   },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./network/*": {
+      "types": "./dist/network/*.d.ts",
+      "default": "./dist/network/*.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    }
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ye0nyu/yeonyu-utils.git"
+    "url": "git+https://github.com/yeonyew/yeonyu-utils.git"
   },
   "keywords": [
     "utils"
   ],
-  "author": "yeonyu",
+  "author": "yeonyew",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/ye0nyu/yeonyu-utils/issues"
+    "url": "https://github.com/yeonyew/yeonyu-utils/issues"
   },
-  "homepage": "https://github.com/ye0nyu/yeonyu-utils#readme",
+  "homepage": "https://github.com/yeonyew/yeonyu-utils#readme",
   "devDependencies": {
-    "@types/chai": "^4.2.19",
-    "@types/mocha": "^8.2.2",
-    "chai": "^4.3.4",
-    "mocha": "^9.0.1",
-    "ts-node": "^10.0.0",
-    "tslib": "^2.1.0",
-    "typescript": "^4.1.3"
+    "@types/chai": "^5.0.1",
+    "@types/mocha": "^10.0.10",
+    "chai": "^5.1.2",
+    "mocha": "^10.8.2",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.8.1",
+    "typescript": "^5.7.2"
   }
 }
